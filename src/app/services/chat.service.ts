@@ -11,7 +11,7 @@ export class ChatService {
   //funcion para enviar mensajes
   sendMessage( mensaje: string ) {
     const payload = {
-      de: 'Fernando',
+      de: this.wsService.getUsuario().nombre,
       cuerpo: mensaje
     };
 
@@ -22,5 +22,11 @@ export class ChatService {
   //un observable escucha hasta que se realiza el suscribe, se suscribe donde se utiliza en este caso en chat.component.ts
   getMessages() {
     return this.wsService.listen('mensaje-nuevo');
+  }
+
+  //función para escuchar mensajes privados
+  //un observable escucha hasta que se realiza el suscribe, se suscribe donde se utiliza en este caso en app.component.ts
+  getMessagesPrivate() {
+    return this.wsService.listen( 'mensaje-privado' );
   }
 }
